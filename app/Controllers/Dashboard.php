@@ -92,8 +92,6 @@ class Dashboard extends BaseController
 
     public function result()
     {
-        // dd($this->ResultModel->resultKetuaGet());
-        // dd($this->ResultModel->resultWakilGet());
         $data = [
             'resultsCount' => $this->ResultModel->countAll(),
             'votersCount' => $this->VoterModel->countAll(),
@@ -101,5 +99,32 @@ class Dashboard extends BaseController
             'wakilCount' => $this->ResultModel->resultWakilGet(),
         ];
         return view('/dashboard/result', $data);
+    }
+
+    public function classes()
+    {
+        $data = [
+            'classes' => $this->ClassModel->classGet(),
+        ];
+
+        return view('/dashboard/classes', $data);
+    }
+
+    public function addclasses()
+    {
+        $data = [
+            'validation' => \Config\Services::validation()
+        ];
+
+        return view('/dashboard/addclasses', $data);
+    }
+
+    public function editclasses($id)
+    {
+        $data = [
+            'class' => $this->ClassModel->classGetId($id),
+            'validation' => \Config\Services::validation()
+        ];
+        return view('/dashboard/editclasses', $data);
     }
 }

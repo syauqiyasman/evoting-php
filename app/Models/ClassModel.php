@@ -14,7 +14,7 @@ class ClassModel extends Model
     protected $returnType           = 'object';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = [];
+    protected $allowedFields        = ['class'];
 
     // Dates
     protected $useTimestamps        = false;
@@ -43,5 +43,25 @@ class ClassModel extends Model
     public function classGet()
     {
         return $this->findAll();
+    }
+
+    public function classPost($params)
+    {
+        $this->save([
+            'class' => $params['class']
+        ]);
+    }
+
+    public function classGetId($id)
+    {
+        return $this->where(['id_class' => $id])->first();
+    }
+
+    public function classPut($params, $id)
+    {
+        $this->save([
+            'id_class' => $id,
+            'class' => $params['class']
+        ]);
     }
 }

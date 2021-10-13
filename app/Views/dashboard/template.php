@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="<?= base_url('style.css'); ?>">
 </head>
 
@@ -16,6 +16,7 @@
                 <div class="flex items-center h-16">
                     <ul class="flex items-center space-x-8 lg:flex">
                         <li><a href="<?= base_url('/dashboard'); ?>" class="font-medium tracking-wide text-gray-700">Home</a></li>
+                        <li><a href="<?= base_url('/dashboard/classes'); ?>" class="font-medium tracking-wide text-gray-700">Classes</a></li>
                         <li><a href="<?= base_url('/dashboard/voters'); ?>" class="font-medium tracking-wide text-gray-700">Voters</a></li>
                         <li><a href="<?= base_url('/dashboard/candidates'); ?>" class="font-medium tracking-wide text-gray-700">Candidates</a></li>
                         <li><a href="<?= base_url('/dashboard/result'); ?>" class="font-medium tracking-wide text-gray-700">Result</a></li>

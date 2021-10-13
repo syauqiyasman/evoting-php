@@ -39,6 +39,8 @@ $routes->get('/dashboard/voters/(:any)/edit', 'Dashboard::editvoters/$1');
 $routes->get('/dashboard/candidates/add', 'Dashboard::addcandidates');
 $routes->get('/dashboard/candidates/(:any)/edit-ketua', 'Dashboard::editcandidatesketua/$1');
 $routes->get('/dashboard/candidates/(:any)/edit-wakil', 'Dashboard::editcandidateswakil/$1');
+$routes->get('/dashboard/classes/add', 'Dashboard::addclasses');
+$routes->get('/dashboard/classes/(:any)/edit', 'Dashboard::editclasses/$1');
 
 $routes->resource('ketua');
 $routes->resource('wakil');
