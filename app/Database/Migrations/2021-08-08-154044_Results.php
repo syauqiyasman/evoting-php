@@ -9,7 +9,7 @@ class Result extends Migration
 	public function up()
 	{
 		$fields = [
-			'id'          => [
+			'id_result'          => [
 				'type'           => 'INT',
 				'constraint'     => 11,
 				'unsigned' => true,
@@ -45,10 +45,9 @@ class Result extends Migration
 		];
 
 		$this->forge->addField($fields);
-		$this->forge->addPrimaryKey('id');
-		// $this->forge->addForeignKey('id_users', 'users', 'id', 'CASCADE', 'NO ACTION');
-		$this->forge->addForeignKey('id_ketua', 'ketua', 'id');
-		$this->forge->addForeignKey('id_wakil', 'wakil', 'id');
+		$this->forge->addPrimaryKey('id_result');
+		$this->forge->addForeignKey('id_ketua', 'ketua', 'id_ketua');
+		$this->forge->addForeignKey('id_wakil', 'wakil', 'id_wakil');
 		$this->forge->createTable('results');
 	}
 

@@ -3,18 +3,19 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\I18n\Time;
 
 class VoterModel extends Model
 {
     protected $DBGroup              = 'default';
     protected $table                = 'voters';
-    protected $primaryKey           = 'id';
+    protected $primaryKey           = 'id_voter';
     protected $useAutoIncrement     = true;
     protected $insertID             = 0;
     protected $returnType           = 'object';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ["name", "username", "password", "id_class"];
+    protected $allowedFields        = ["name", "username", "password", "id_class", "status", "voted_at"];
 
     // Dates
     protected $useTimestamps        = true;
@@ -54,18 +55,18 @@ class VoterModel extends Model
 
     public function voterGet()
     {
-        return $this->findAll();
+        return $this->table('voters')->join('classes', 'classes.id_class = voters.id_class')->orderBy('voters.id_class ASC')->get()->getResult();
     }
 
     public function voterGetId($id)
     {
-        return $this->where(['id' => $id])->first();
+        return $this->where(['id_voter' => $id])->join('classes', 'classes.id_class = voters.id_class')->first();
     }
 
     public function voterPut($params, $id)
     {
         $this->save([
-            'id' => $id,
+            'id_voter' => $id,
             'name' => $params['name'],
             'id_class' => $params['class'],
             'username' => $params['username'],
@@ -73,8 +74,22 @@ class VoterModel extends Model
         ]);
     }
 
-    public function voterDelete()
+    public function voterPutWithoutPassword($params, $id)
     {
-        //
+        $this->save([
+            'id_voter' => $id,
+            'name' => $params['name'],
+            'id_class' => $params['class'],
+            'username' => $params['username'],
+        ]);
+    }
+
+    public function resultPost($id)
+    {
+        $this->save([
+            'id_voter' => $id,
+            'status' => 0,
+            'voted_at' => new Time('now', 'Asia/Jakarta', 'id'),
+        ]);
     }
 }

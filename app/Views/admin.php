@@ -17,9 +17,8 @@
                     Login
                 </h2>
             </div>
-            <form class="mt-8 space-y-6" action="<?= base_url('/auth/login'); ?>" method="POST" onsubmit="handleSubmit()">
+            <form class="mt-8 space-y-6" action="<?= base_url('/admin/login'); ?>" method="POST" onsubmit="handleSubmit()">
                 <?= csrf_field(); ?>
-                <input type="hidden" name="remember" value="true">
                 <div class="col-span-6 sm:col-span-3">
                     <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
                     <input type="text" name="username" id="username" class="mt-1 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border border-gray-300 rounded-md py-2 px-3" value="<?= (old('username')); ?>">
@@ -50,7 +49,11 @@
                     </button>
                 </div>
                 <div class="text-sm text-red-600 text-center">
-                    <?= $validation->getError('password'); ?>
+                    <?= sizeof($validation->getErrors()) > 0 ? "Login gagal" : ''; ?>
+
+                    <?php if (!empty((session()->getFlashdata('gagal')))) : ?>
+                        <?= session()->getFlashdata('gagal'); ?>
+                    <?php endif; ?>
                 </div>
             </form>
         </div>

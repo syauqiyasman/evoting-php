@@ -9,7 +9,7 @@ class Voters extends Migration
 	public function up()
 	{
 		$fields = [
-			'id'          => [
+			'id_voter'          => [
 				'type'           => 'INT',
 				'constraint'     => 11,
 				'unsigned' => true,
@@ -56,8 +56,8 @@ class Voters extends Migration
 
 		];
 		$this->forge->addField($fields);
-		$this->forge->addPrimaryKey('id');
-		$this->forge->addForeignKey('id_class', 'classes', 'id');
+		$this->forge->addPrimaryKey('id_voter');
+		$this->forge->addForeignKey('id_class', 'classes', 'id_class');
 		$this->forge->createTable('voters');
 	}
 

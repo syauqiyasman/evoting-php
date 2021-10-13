@@ -8,7 +8,7 @@ class ClassModel extends Model
 {
     protected $DBGroup              = 'default';
     protected $table                = 'classes';
-    protected $primaryKey           = 'id';
+    protected $primaryKey           = 'id_class';
     protected $useAutoIncrement     = true;
     protected $insertID             = 0;
     protected $returnType           = 'object';

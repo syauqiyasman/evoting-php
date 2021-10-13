@@ -17,7 +17,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Auth');
+$routes->setDefaultController('Application');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -31,9 +31,17 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Auth::index');
+$routes->get('/', 'Application::index');
+$routes->get('/vote', 'Application::vote');
+$routes->get('/response', 'Application::response');
 $routes->get('/dashboard/voters/add', 'Dashboard::addvoters');
 $routes->get('/dashboard/voters/(:any)/edit', 'Dashboard::editvoters/$1');
+$routes->get('/dashboard/candidates/add', 'Dashboard::addcandidates');
+$routes->get('/dashboard/candidates/(:any)/edit-ketua', 'Dashboard::editcandidatesketua/$1');
+$routes->get('/dashboard/candidates/(:any)/edit-wakil', 'Dashboard::editcandidateswakil/$1');
+
+$routes->resource('ketua');
+$routes->resource('wakil');
 
 /*
  * --------------------------------------------------------------------

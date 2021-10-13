@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use \App\Models\VoterModel;
 
-class Crud extends BaseController
+class VotersController extends BaseController
 {
     public function __construct()
     {
@@ -50,6 +50,34 @@ class Crud extends BaseController
 
     public function updatevoters($id)
     {
+        if ($this->request->getPost('password') === "") {
+            if (!$this->validate([
+                'name' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Masukkan nama',
+                    ]
+                ],
+                'username' => [
+                    'rules' => 'required|is_unique[voters.username,id_voter,' . $id . ']',
+                    'errors' => [
+                        'required' => 'Masukkan username',
+                        'is_unique' => 'Username tidak tersedia'
+                    ]
+                ],
+                'confirm' => [
+                    'rules' => 'matches[password]',
+                    'errors' => [
+                        'matches' => 'Password tidak sesuai',
+                    ]
+                ],
+            ])) {
+                return redirect()->to(base_url("/dashboard/voters/$id/edit"))->withInput();
+            }
+            $this->VoterModel->voterPutWithoutPassword($this->request->getPost(), $id);
+            return redirect()->to(base_url('/dashboard/voters'));
+        }
+
         if (!$this->validate([
             'name' => [
                 'rules' => 'required',
@@ -58,7 +86,7 @@ class Crud extends BaseController
                 ]
             ],
             'username' => [
-                'rules' => 'required|is_unique[voters.username,id,' . $id . ']',
+                'rules' => 'required|is_unique[voters.username,id_voter,' . $id . ']',
                 'errors' => [
                     'required' => 'Masukkan username',
                     'is_unique' => 'Username tidak tersedia'
@@ -84,8 +112,9 @@ class Crud extends BaseController
         return redirect()->to(base_url('/dashboard/voters'));
     }
 
-    public function deletevoter()
+    public function deletevoters()
     {
-        //
+        $this->VoterModel->delete($this->request->getPost('_delete_'));
+        return redirect()->to(base_url('/dashboard/voters'));
     }
 }

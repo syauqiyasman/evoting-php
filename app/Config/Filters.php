@@ -6,6 +6,9 @@ use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
+use App\Filters\DashboardFilter;
+use App\Filters\VotedVoterFilter;
+use App\Filters\VoteFilter;
 
 class Filters extends BaseConfig
 {
@@ -19,6 +22,9 @@ class Filters extends BaseConfig
         'csrf'     => CSRF::class,
         'toolbar'  => DebugToolbar::class,
         'honeypot' => Honeypot::class,
+        'dashboard' => DashboardFilter::class,
+        'vote' => VoteFilter::class,
+        'voted' => VotedVoterFilter::class,
     ];
 
     /**
@@ -58,5 +64,19 @@ class Filters extends BaseConfig
      *
      * @var array
      */
-    public $filters = [];
+    public $filters = [
+        'dashboard' => [
+            'before' => ['dashboard', 'dashboard/*', 'candidatescontroller', 'candidatescontroller/*', 'voterscontroller', 'voterscontroller/*'],
+            'after' => ['/', '/admin'],
+        ],
+        'vote' => [
+            'before' => ['vote', 'vote/*', 'application/vote', 'application/vote/*', 'application/votePost', 'application/votePost/*',],
+            'after' => ['/', 'admin', 'admin/*'],
+        ],
+        'voted' => [
+            'before' => ['response', 'response/*', 'application/response', 'application/response/*'],
+            'after' => ['/', 'admin', 'admin/*'],
+        ]
+
+    ];
 }
