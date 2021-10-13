@@ -9,7 +9,7 @@ class Classes extends Migration
 	public function up()
 	{
 		$fields = [
-			'id'          => [
+			'id_class'          => [
 				'type'           => 'INT',
 				'constraint'     => 11,
 				'unsigned' => true,
@@ -22,7 +22,7 @@ class Classes extends Migration
 		];
 
 		$this->forge->addField($fields);
-		$this->forge->addPrimaryKey('id');
+		$this->forge->addPrimaryKey('id_class');
 		$this->forge->createTable('classes');
 	}
 

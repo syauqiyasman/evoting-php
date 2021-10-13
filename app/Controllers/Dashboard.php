@@ -3,7 +3,10 @@
 namespace App\Controllers;
 
 use App\Models\ClassModel;
+use App\Models\KetuaModel;
+use App\Models\ResultModel;
 use App\Models\VoterModel;
+use App\Models\WakilModel;
 
 class Dashboard extends BaseController
 {
@@ -11,6 +14,9 @@ class Dashboard extends BaseController
     {
         $this->VoterModel = new VoterModel();
         $this->ClassModel = new ClassModel();
+        $this->KetuaModel = new KetuaModel();
+        $this->WakilModel = new WakilModel();
+        $this->ResultModel = new ResultModel();
     }
 
     public function index()
@@ -20,7 +26,11 @@ class Dashboard extends BaseController
 
     public function candidates()
     {
-        return view('/dashboard/candidates');
+        $data = [
+            'ketua' => $this->KetuaModel->ketuaGet(),
+            'wakil' => $this->WakilModel->wakilGet(),
+        ];
+        return view('/dashboard/candidates', $data);
     }
 
     public function voters()
@@ -31,15 +41,11 @@ class Dashboard extends BaseController
         return view('/dashboard/voters', $data);
     }
 
-    public function result()
-    {
-        return view('/dashboard/result');
-    }
-
     public function addvoters()
     {
         $data = [
-            'classes' => $this->ClassModel->classGet()
+            'classes' => $this->ClassModel->classGet(),
+            'validation' => \Config\Services::validation()
         ];
         return view('/dashboard/addvoters', $data);
     }
@@ -48,8 +54,52 @@ class Dashboard extends BaseController
     {
         $data = [
             'voter' => $this->VoterModel->voterGetId($id),
-            'classes' => $this->ClassModel->classGet()
+            'classes' => $this->ClassModel->classGet(),
+            'validation' => \Config\Services::validation()
         ];
         return view('/dashboard/editvoters', $data);
+    }
+
+    public function addcandidates()
+    {
+        $data = [
+            'classes' => $this->ClassModel->classGet(),
+            'validation' => \Config\Services::validation()
+        ];
+        return view('/dashboard/addcandidates', $data);
+    }
+
+    public function editcandidatesketua($id)
+    {
+        $data = [
+            'ketua' => $this->KetuaModel->ketuaGetId($id),
+            'classes' => $this->ClassModel->classGet(),
+            'validation' => \Config\Services::validation()
+        ];
+        return view('/dashboard/editcandidates-ketua', $data);
+    }
+
+    public function editcandidateswakil($id)
+    {
+        $data = [
+            'wakil' => $this->WakilModel->wakilGetId($id),
+            'classes' => $this->ClassModel->classGet(),
+            'validation' => \Config\Services::validation()
+        ];
+        return view('/dashboard/editcandidates-wakil', $data);
+    }
+
+
+    public function result()
+    {
+        // dd($this->ResultModel->resultKetuaGet());
+        // dd($this->ResultModel->resultWakilGet());
+        $data = [
+            'resultsCount' => $this->ResultModel->countAll(),
+            'votersCount' => $this->VoterModel->countAll(),
+            'ketuaCount' => $this->ResultModel->resultKetuaGet(),
+            'wakilCount' => $this->ResultModel->resultWakilGet(),
+        ];
+        return view('/dashboard/result', $data);
     }
 }

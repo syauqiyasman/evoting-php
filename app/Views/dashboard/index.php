@@ -3,6 +3,6 @@
 
 <?= $this->section('content'); ?>
 
-<h1>welcome</h1>
+<h1>Made with love by Syauqi, Aurelia, and Rahma</h1>
 
 <?= $this->endSection(); ?>

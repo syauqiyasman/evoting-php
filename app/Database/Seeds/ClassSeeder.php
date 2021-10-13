@@ -8,16 +8,32 @@ class ClassSeeder extends Seeder
 {
     public function run()
     {
-        $this->db->table('classes')->insert(['class' => 'X IPA']);
+        for ($x = 1; $x <= 5; $x++) {
+            $this->db->table("classes")->insert(["class" => "X IPA $x"]);
+        }
 
-        $this->db->table('classes')->insert(['class' => 'XI IPA']);
+        for ($x = 1; $x <= 5; $x++) {
+            $this->db->table("classes")->insert(["class" => "XI IPA $x"]);
+        }
 
-        $this->db->table('classes')->insert(['class' => 'XII IPA']);
+        for ($x = 1; $x <= 5; $x++) {
+            $this->db->table("classes")->insert(["class" => "XII IPA $x"]);
+        }
 
-        $this->db->table('classes')->insert(['class' => 'X IPS']);
+        for ($x = 1; $x <= 5; $x++) {
+            $this->db->table("classes")->insert(["class" => "X IPS $x"]);
+        }
 
-        $this->db->table('classes')->insert(['class' => 'XI IPS']);
+        for ($x = 1; $x <= 5; $x++) {
+            $this->db->table("classes")->insert(["class" => "XI IPS $x"]);
+        }
 
-        $this->db->table('classes')->insert(['class' => 'XII IPS']);
+        for ($x = 1; $x <= 5; $x++) {
+            $this->db->table("classes")->insert(["class" => "XII IPS $x"]);
+        }
+
+        $this->db->table("classes")->insert(["class" => "Kepala Sekolah"]);
+        $this->db->table("classes")->insert(["class" => "Guru"]);
+        $this->db->table("classes")->insert(["class" => "Lain-lain"]);
     }
 }

@@ -14,7 +14,7 @@ class AdminModel extends Model
     protected $returnType           = 'object';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = [];
+    protected $allowedFields        = ['username', 'password'];
 
     // Dates
     protected $useTimestamps        = true;
@@ -39,4 +39,15 @@ class AdminModel extends Model
     protected $afterFind            = [];
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
+
+    public function adminRegister($params)
+    {
+        $unhash = $params['password'];
+        $password = password_hash($unhash, PASSWORD_BCRYPT);
+
+        $this->save([
+            'username' => $params['username'],
+            'password' => $password
+        ]);
+    }
 }
