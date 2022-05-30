@@ -313,6 +313,7 @@
                 return false;
             }
             showTab(currentTab)
+            window.scrollTo({top: 0, behavior: 'smooth'})
         }
 
         function validateForm() {
