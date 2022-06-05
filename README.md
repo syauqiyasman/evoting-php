@@ -3,7 +3,7 @@
 First, clone the repository
 
 ```bash
-git clone https://github.com/syauqiyasman/evoting-backend.git
+https://github.com/syauqiyasman/evoting-php.git
 ```
 
 Install the dependency with composer
